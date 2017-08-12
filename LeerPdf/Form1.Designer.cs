@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnProcesar = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnProcesar
+            // 
+            this.btnProcesar.Location = new System.Drawing.Point(403, 333);
+            this.btnProcesar.Name = "btnProcesar";
+            this.btnProcesar.Size = new System.Drawing.Size(75, 23);
+            this.btnProcesar.TabIndex = 0;
+            this.btnProcesar.Text = "button1";
+            this.btnProcesar.UseVisualStyleBackColor = true;
+            this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 448);
+            this.Controls.Add(this.btnProcesar);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -42,6 +54,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnProcesar;
     }
 }
 
