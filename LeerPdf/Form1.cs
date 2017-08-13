@@ -13,6 +13,9 @@ using iTextSharp.text.pdf.parser;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 
+using iTextSharp.text.pdf;
+using iTextSharp;
+
 namespace LeerPdf
 {
     public partial class Form1 : Form
@@ -42,11 +45,19 @@ namespace LeerPdf
                 PdfReader reader = new PdfReader(file);
 
                 StringWriter output = new StringWriter();
+                StringWriter outputBytes = new StringWriter();
                 string ciudad = "";
                 for (int i = 1; i <= reader.NumberOfPages; i++)
                 {
-                    
+                    ITextExtractionStrategy its = new iTextSharp.text.pdf.parser.LocationTextExtractionStrategy();
                     output.WriteLine(PdfTextExtractor.GetTextFromPage(reader, i, new SimpleTextExtractionStrategy()));
+                    PdfObject obj = reader.GetPdfObject(i);
+
+                    //var asd = ExtractTextFromPDFBytes(reader.GetPageContent(i));
+
+                    byte[] contentBytes = iTextSharp.text.pdf.parser.ContentByteUtils.GetContentBytesForPage(reader, i);
+                    outputBytes.WriteLine(System.Text.Encoding.UTF8.GetString(contentBytes));
+
                     if (i == 1)
                     {
 
@@ -63,7 +74,7 @@ namespace LeerPdf
 
                 }
                 string resultado = output.ToString();
-
+                string resultadoBytes = outputBytes.ToString();
                 string[] arrString = output.ToString().Split('\n');
                 for(var i = 0; i < arrString.Length; i++)
                 {
