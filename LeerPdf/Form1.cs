@@ -37,7 +37,7 @@ namespace LeerPdf
             workTable.Columns.Add("Genero", typeof(String));
             workTable.Columns.Add("Direccion", typeof(String));
 
-            string rutaArchivos = @"C:\Users\BrunoAlonsoPalmaÁvil\OneDrive\Leer PDF excel\Nueva carpeta\Datos comunas\";
+            string rutaArchivos = @"C:\Users\BrunoAlonsoPalmaÁvil\Desktop\Escritorio\Leer PDF excel\Nueva carpeta\Datos comunas\asd\";
             foreach (string file in Directory.EnumerateFiles(rutaArchivos, "*.pdf"))
             {
                 string contents = File.ReadAllText(file);
@@ -56,8 +56,11 @@ namespace LeerPdf
                     //var asd = ExtractTextFromPDFBytes(reader.GetPageContent(i));
 
                     byte[] contentBytes = iTextSharp.text.pdf.parser.ContentByteUtils.GetContentBytesForPage(reader, i);
+                    
                     outputBytes.WriteLine(System.Text.Encoding.UTF8.GetString(contentBytes));
-
+                    // Bt\\n[A-Z a-z \s\d-\\/()'Ñ.\[\]]*sc
+                    // BT\\n[A-Z a-z \s\d-\\\/()'Ñ.\[\]]*sc[A-Z a-z \s\d-\\\/()'Ñ.\[\]]*ET
+                    // BT\\n[A-Z a-z \s\d-\\\/()'Ñ.\[\]�]*sc
                     if (i == 1)
                     {
 
@@ -71,14 +74,38 @@ namespace LeerPdf
 
 
                     }
+                    string resultadoPaginaBytes = outputBytes.ToString();
+                    //(?=BT).*?(?<=sc\\n)
+                    Regex regexPag = new Regex("(?=BT).*?(?<=sc\\n)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    Match matchpag = regexPag.Match(resultadoPaginaBytes);
+                    if (matchpag.Success)
+                    {
+                        Console.WriteLine(matchpag.Value);
+                    }
+                    string pattern = "(?=BT).*?(?<=sc\\n)";
+                    MatchCollection matches = Regex.Matches(resultadoPaginaBytes, pattern);
 
-                }
+                    foreach (Match match in matches)
+                    {
+                        var nombre = match.Groups[2].Value;
+                    }
+
+                 }
                 string resultado = output.ToString();
                 string resultadoBytes = outputBytes.ToString();
+                
+                Regex regex = new Regex(@"(?<=BT).*\n?(?=sc)");
+                Match matchx = regex.Match(resultadoBytes);
+                if (matchx.Success)
+                {
+                    Console.WriteLine(matchx.Value);
+                }
+
+
                 string[] arrString = output.ToString().Split('\n');
                 for(var i = 0; i < arrString.Length; i++)
                 {
-                    Regex regex = new Regex(@"\d{1,2}.\d{3}.\d{3}-\d{1}");
+                    //Regex regex = new Regex(@"\d{1,2}.\d{3}.\d{3}-\d{1}");
                     //Match match = regex.Match(arrString[i]);
                     string pattern = @"(\s\d*)([a-zA-Z\s]*)(\d{1,2}.\d{3}.\d{3}-\d{1})\s(MUJ|VAR)\s([a-zA-Z0-9,.!? ]*)("+ciudad+@")\s(\d*\s*\s(V|M))";
                     MatchCollection matches = Regex.Matches(arrString[i], pattern);
