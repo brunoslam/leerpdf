@@ -1,6 +1,6 @@
 ﻿namespace LeerPdf
 {
-    partial class Form1
+    partial class TiempoTranscurrido
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnProcesar = new System.Windows.Forms.Button();
+            this.lblTiempoTranscurrido = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnProcesar
@@ -41,21 +42,33 @@
             this.btnProcesar.UseVisualStyleBackColor = true;
             this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click);
             // 
-            // Form1
+            // lblTiempoTranscurrido
+            // 
+            this.lblTiempoTranscurrido.AutoSize = true;
+            this.lblTiempoTranscurrido.Location = new System.Drawing.Point(115, 124);
+            this.lblTiempoTranscurrido.Name = "lblTiempoTranscurrido";
+            this.lblTiempoTranscurrido.Size = new System.Drawing.Size(35, 13);
+            this.lblTiempoTranscurrido.TabIndex = 1;
+            this.lblTiempoTranscurrido.Text = "label1";
+            // 
+            // TiempoTranscurrido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 448);
+            this.Controls.Add(this.lblTiempoTranscurrido);
             this.Controls.Add(this.btnProcesar);
-            this.Name = "Form1";
+            this.Name = "TiempoTranscurrido";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button btnProcesar;
+        private System.Windows.Forms.Label lblTiempoTranscurrido;
     }
 }
 
