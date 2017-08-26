@@ -49,8 +49,6 @@ namespace LeerPdf
             foreach (string file in Directory.EnumerateFiles(rutaArchivos, "*.pdf"))
             {
                 Application.DoEvents();
-
-
                 //string contents = File.ReadAllText(file);
                 var nombreArchivo = System.IO.Path.GetFileNameWithoutExtension(file);
                 PdfReader reader = new PdfReader(file);
@@ -205,13 +203,10 @@ namespace LeerPdf
                 }
 
             }
-
+            InsertarBBDD(personaTable);
             stopwatch.Stop();
             lblTiempoTranscurrido.Text = stopwatch.Elapsed.TotalMinutes.ToString(); ;
-            InsertarBBDD(personaTable);
-            // reset
-            //this.dataTable.Clear();
-            var asdf = "";
+           
 
         }
 
