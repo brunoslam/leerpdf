@@ -1,0 +1,135 @@
+﻿@model ObtenerPersona.Models.Persona
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Persona</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rut)
+        </dd>
+
+        <dt>
+            Edad Aproximada
+        </dt>
+
+        <dd>
+            @{
+                //
+                string rut = Model.Rut.Replace(".", string.Empty);
+                rut = rut.Substring(0, rut.IndexOf('-') - 1);
+                int anoNacimientoAprox = Convert.ToInt32(Math.Ceiling(1930.3 + (3.46 * (Int32.Parse(rut) / 1000000))));
+                //Double edad = 1930.3 + (3.46 * 187221374);
+                DateTime fechaActual = DateTime.Now;
+                int edad = fechaActual.Year - anoNacimientoAprox;
+            }
+            @Html.Label(edad.ToString())
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Circunscripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Circunscripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provincia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provincia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ciudad)
+        </dd>
+
+
+
+    </dl>
+</div>
+@{
+
+    <div class="col-md-6" style="height:300px; position: relative;">
+        <div id="map-canvas"></div>
+
+        <script type="text/javascript">
+                var map;
+                function initialize() {
+                    var myLatlng = new google.maps.LatLng(-26.81806, -70.25527);
+                    var mapOptions = {
+                        zoom: 15,
+                        center: myLatlng
+                    };
+                    map = new google.maps.Map(document.getElementById('map-canvas'),
+                        mapOptions);
+                    //
+                    new google.maps.Geocoder().geocode({ 'address': '@Model.Direccion @Model.Region @Model.Ciudad'}, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                        } else {
+                            alert('Error al encontrar: ' + status);
+                        }
+                    });
+                }
+                google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+    </div>
+
+
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Volver a filtrar", "Create")
+</p>

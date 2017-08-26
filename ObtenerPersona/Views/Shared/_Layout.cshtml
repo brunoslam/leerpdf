@@ -7,6 +7,15 @@
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7_y29fhMHXjDJ7IU5AHGjYqZvwcWZQc8" type="text/javascript"></script>
+    <style>
+         #map-canvas {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: auto;
+        }
+    </style>  
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,6 +33,7 @@
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Filtrar", "Create", "Personas")</li>
                 </ul>
             </div>
         </div>
