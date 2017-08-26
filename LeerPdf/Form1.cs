@@ -34,7 +34,7 @@ namespace LeerPdf
             int nro = 0;
             DataTable workTable = new DataTable("Persona");
             DataTable personaTable = new DataTable("Persona");
-
+            personaTable.Columns.Add("Id", typeof(Int32));
             personaTable.Columns.Add("Nombre", typeof(String));
             personaTable.Columns.Add("Rut", typeof(String));
 
@@ -44,7 +44,6 @@ namespace LeerPdf
             personaTable.Columns.Add("Region", typeof(String));
             personaTable.Columns.Add("Provincia", typeof(String));
             personaTable.Columns.Add("Ciudad", typeof(String));
-
             string rutaArchivos = @"C:\Users\BrunoAlonsoPalmaÁvil\Desktop\Escritorio\Leer PDF excel\Nueva carpeta\Datos comunas\asd\";
             foreach (string file in Directory.EnumerateFiles(rutaArchivos, "*.pdf"))
             {
